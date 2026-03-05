@@ -1,25 +1,50 @@
 @import "tailwindcss";
 
 @theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --shadow-card: 0 1px 3px 0 rgba(0,0,0,0.06), 0 1px 2px -1px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 10px 30px -8px rgba(0,0,0,0.12), 0 4px 10px -4px rgba(0,0,0,0.06);
+  --shadow-navbar: 0 1px 0 0 rgba(0,0,0,0.06);
+}
+
+/* Theme tokens */
+:root[data-theme="light"] {
+  --background: #F8F8F6;
+  --foreground: #111111;
+
   --color-base: #F8F8F6;
   --color-base-100: #F2F2EE;
   --color-charcoal: #111111;
-  --color-charcoal-80: #1A1A1A;
-  --color-charcoal-60: #2E2E2E;
   --color-muted: #6B6B6B;
   --color-muted-light: #9A9A9A;
   --color-copper: #C4793A;
   --color-copper-light: #D4895A;
   --color-copper-dim: #F0E6DC;
   --color-border: #E2E2DE;
-  --color-border-dark: #2A2A2A;
-  --color-white: #FFFFFF;
+  --color-border-strong: #2A2A2A;
+  --color-surface: #FFFFFF;
+  --color-surface-soft: #F8F8F6;
+  --color-nav-surface: rgba(248, 248, 246, 0.9);
+}
 
-  --font-sans: 'Inter', system-ui, sans-serif;
+:root[data-theme="dark"] {
+  --background: #070707;
+  --foreground: #F5F5F2;
 
-  --shadow-card: 0 1px 3px 0 rgba(0,0,0,0.06), 0 1px 2px -1px rgba(0,0,0,0.04);
-  --shadow-card-hover: 0 10px 30px -8px rgba(0,0,0,0.12), 0 4px 10px -4px rgba(0,0,0,0.06);
-  --shadow-navbar: 0 1px 0 0 rgba(0,0,0,0.06);
+  --color-base: #070707;
+  --color-base-100: #0E0E0E;
+  --color-charcoal: #F5F5F2;
+  --color-muted: #A0A0A0;
+  --color-muted-light: #B8B8B8;
+  --color-copper: #C98A4F;
+  --color-copper-light: #E0A56B;
+  --color-copper-dim: rgba(201, 138, 79, 0.12);
+  --color-border: #222222;
+  --color-border-strong: #303030;
+  --color-surface: #101010;
+  --color-surface-soft: #111111;
+  --color-nav-surface: rgba(7, 7, 7, 0.9);
 }
 
 @layer base {
@@ -34,15 +59,30 @@
   }
 
   body {
-    background-color: #F8F8F6;
-    color: #111111;
+    background-color: var(--background);
+    color: var(--foreground);
     font-family: 'Inter', system-ui, sans-serif;
     line-height: 1.6;
   }
 
   ::selection {
-    background-color: #C4793A;
+    background-color: var(--color-copper);
     color: #FFFFFF;
+  }
+
+  /* Navbar shells for light/dark */
+  .navbar-shell {
+    backdrop-filter: blur(18px);
+  }
+
+  .navbar-shell--top {
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+  }
+
+  .navbar-shell--scrolled {
+    background-color: var(--color-nav-surface);
+    border-bottom: 1px solid var(--color-border);
   }
 }
 
@@ -57,10 +97,18 @@
   }
 
   .container-tight {
-    max-width: 1120px;
+    max-width: 1440px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+
+  @media (min-width: 1280px) {
+    .container-tight {
+      max-width: 1520px;
+      padding-left: 1.75rem;
+      padding-right: 1.75rem;
+    }
   }
 }

@@ -6,7 +6,7 @@ export default function FinalCTA() {
   return (
     <section
       id="contact"
-      className="bg-[#111111] section-padding relative overflow-hidden"
+      className="bg-[var(--color-base-100)] section-padding relative overflow-hidden"
       aria-labelledby="cta-heading"
     >
       {/* Background texture */}

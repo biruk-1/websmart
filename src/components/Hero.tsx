@@ -18,7 +18,7 @@ const fadeUp = {
 export default function Hero() {
   return (
     <section
-      className="relative min-h-screen flex items-center bg-[#F8F8F6] overflow-hidden pt-16"
+      className="relative min-h-screen flex items-center bg-[var(--color-base)] overflow-hidden pt-16"
       aria-label="Hero"
     >
       {/* Subtle background grid */}
@@ -65,7 +65,7 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="text-[44px] md:text-[56px] lg:text-[60px] font-bold text-[#111111] leading-[1.08] tracking-[-0.02em] text-balance"
+              className="text-[44px] md:text-[56px] lg:text-[60px] font-bold text-[var(--color-charcoal)] leading-[1.08] tracking-[-0.02em] text-balance"
             >
               We Build Smart{" "}
               <span className="relative inline-block">
@@ -94,7 +94,7 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="text-[17px] text-[#6B6B6B] leading-relaxed max-w-md"
+              className="text-[17px] text-[var(--color-muted)] leading-relaxed max-w-md"
             >
               Web Smart partners with startups and growing businesses to build
               polished web applications, scalable SaaS products, and intelligent

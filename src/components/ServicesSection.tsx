@@ -96,7 +96,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="section-padding bg-[#F8F8F6]"
+      className="section-padding bg-[var(--color-base)]"
       aria-labelledby="services-heading"
     >
       <div className="container-tight">
@@ -108,19 +108,19 @@ export default function ServicesSection() {
           transition={{ duration: 0.55 }}
           className="max-w-xl mb-14"
         >
-          <span className="inline-flex items-center gap-2 text-[#C4793A] text-[12px] font-semibold uppercase tracking-widest mb-4">
-            <span className="w-4 h-px bg-[#C4793A]" />
+          <span className="inline-flex items-center gap-2 text-[var(--color-copper)] text-[12px] font-semibold uppercase tracking-widest mb-4">
+            <span className="w-4 h-px bg-[var(--color-copper)]" />
             What We Build
           </span>
           <h2
             id="services-heading"
-            className="text-[36px] md:text-[44px] font-bold text-[#111111] leading-[1.1] tracking-[-0.02em] mb-4"
+            className="text-[36px] md:text-[44px] font-bold text-[var(--color-charcoal)] leading-[1.1] tracking-[-0.02em] mb-4"
           >
             Four disciplines,
             <br />
             one focused studio.
           </h2>
-          <p className="text-[16px] text-[#6B6B6B] leading-relaxed">
+          <p className="text-[16px] text-[var(--color-muted)] leading-relaxed">
             We go deep rather than wide. Every engagement is staffed with specialists
             who live and breathe their domain.
           </p>

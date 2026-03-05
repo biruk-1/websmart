@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTheme } from "./ThemeProvider";
 
 const navLinks = [
   { label: "Services", href: "/#services" },
@@ -15,6 +16,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -22,16 +24,18 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const headerClassName = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 navbar-shell ${
+    scrolled ? "navbar-shell--scrolled" : "navbar-shell--top"
+  }`;
+
+  const isDark = theme === "dark";
+
   return (
     <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#F8F8F6]/90 backdrop-blur-md border-b border-[#E2E2DE]"
-          : "bg-transparent"
-      }`}
+      className={headerClassName}
     >
       <div className="container-tight">
         <nav
@@ -68,43 +72,95 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <ul className="hidden md:flex items-center gap-8" role="list">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className="text-[14px] font-medium text-[#6B6B6B] hover:text-[#111111] transition-colors duration-150"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="hidden md:flex items-center gap-6">
+            <ul className="flex items-center gap-8" role="list">
+              {navLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-[14px] font-medium text-[#6B6B6B] hover:text-[#111111] transition-colors duration-150"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center">
-            <Link
-              href="/#contact"
-              className="inline-flex items-center gap-2 bg-[#111111] text-[#F8F8F6] text-[13px] font-medium px-4 py-2 rounded-lg hover:bg-[#C4793A] transition-colors duration-200"
-            >
-              Book a Strategy Call
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
+            <div className="flex items-center gap-3">
+              {/* Theme toggle */}
+              <button
+                type="button"
+                onClick={toggleTheme}
+                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#E2E2DE] bg-[#F8F8F6] text-[#6B6B6B] hover:text-[#111111] hover:border-[#C4793A]/60 transition-colors duration-200"
               >
-                <path
-                  d="M2.5 6H9.5M6.5 3L9.5 6L6.5 9"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            </Link>
+                {isDark ? (
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M7.5 2.25A5.25 5.25 0 1012.75 7.5 3.75 3.75 0 017.5 2.25z"
+                      stroke="currentColor"
+                      strokeWidth="1.3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      cx="7.5"
+                      cy="7.5"
+                      r="2.5"
+                      stroke="currentColor"
+                      strokeWidth="1.3"
+                    />
+                    <path
+                      d="M7.5 1.25v1.5M7.5 12.25v1.5M2.25 7.5h1.5M11.25 7.5h1.5M3.3 3.3l1.05 1.05M10.65 10.65l1.05 1.05M11.7 3.3 10.65 4.35M4.35 10.65 3.3 11.7"
+                      stroke="currentColor"
+                      strokeWidth="1.1"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                )}
+              </button>
+
+              {/* CTA */}
+              <Link
+                href="/#contact"
+                className="inline-flex items-center gap-2 bg-[#111111] text-[#F8F8F6] text-[13px] font-medium px-4 py-2 rounded-lg hover:bg-[#C4793A] transition-colors duration-200"
+              >
+                Book a Strategy Call
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2.5 6H9.5M6.5 3L9.5 6L6.5 9"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -141,26 +197,78 @@ export default function Navbar() {
             transition={{ duration: 0.2 }}
             className="md:hidden border-t border-[#E2E2DE] pb-6 pt-4 bg-[#F8F8F6]/95 backdrop-blur-md"
           >
-            <ul className="flex flex-col gap-1" role="list">
-              {navLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="block py-2 text-[15px] font-medium text-[#6B6B6B] hover:text-[#111111] transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/#contact"
-              onClick={() => setMenuOpen(false)}
-              className="mt-4 inline-flex w-full items-center justify-center gap-2 bg-[#111111] text-[#F8F8F6] text-[14px] font-medium px-4 py-2.5 rounded-lg hover:bg-[#C4793A] transition-colors"
-            >
-              Book a Strategy Call
-            </Link>
+            <div className="flex flex-col gap-3">
+              <ul className="flex flex-col gap-1" role="list">
+                {navLinks.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block py-2 text-[15px] font-medium text-[#6B6B6B] hover:text-[#111111] transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex items-center justify-between gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={toggleTheme}
+                  aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#E2E2DE] bg-[#F8F8F6] text-[#6B6B6B] hover:text-[#111111] hover:border-[#C4793A]/60 transition-colors duration-200"
+                >
+                  {isDark ? (
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M7.5 2.25A5.25 5.25 0 1012.75 7.5 3.75 3.75 0 017.5 2.25z"
+                        stroke="currentColor"
+                        strokeWidth="1.3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        cx="7.5"
+                        cy="7.5"
+                        r="2.5"
+                        stroke="currentColor"
+                        strokeWidth="1.3"
+                      />
+                      <path
+                        d="M7.5 1.25v1.5M7.5 12.25v1.5M2.25 7.5h1.5M11.25 7.5h1.5M3.3 3.3l1.05 1.05M10.65 10.65l1.05 1.05M11.7 3.3 10.65 4.35M4.35 10.65 3.3 11.7"
+                        stroke="currentColor"
+                        strokeWidth="1.1"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  )}
+                </button>
+                <Link
+                  href="/#contact"
+                  onClick={() => setMenuOpen(false)}
+                  className="inline-flex flex-1 items-center justify-center gap-2 bg-[#111111] text-[#F8F8F6] text-[14px] font-medium px-4 py-2.5 rounded-lg hover:bg-[#C4793A] transition-colors"
+                >
+                  Book a Strategy Call
+                </Link>
+              </div>
+            </div>
           </motion.div>
         )}
       </div>
