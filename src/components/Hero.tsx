@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTheme } from "./ThemeProvider";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -16,35 +17,44 @@ const fadeUp = {
 };
 
 export default function Hero() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
     <section
       className="relative min-h-screen flex items-center bg-[var(--color-base)] overflow-hidden pt-16"
       aria-label="Hero"
     >
-      {/* Subtle background grid */}
+      {/* Fixed subtle dot grid + moving glow wave (both themes) */}
+      <div className="hero-dots" aria-hidden="true" />
+      <div className="hero-dots-glow" aria-hidden="true" />
+      {/* Subtle copper dot layer (top area only) - light touch */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-x-0 top-0 h-[50%] pointer-events-none"
         aria-hidden="true"
         style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, #D8D8D4 1px, transparent 0)",
-          backgroundSize: "32px 32px",
+          backgroundImage: isDark
+            ? "radial-gradient(circle at 1px 1px, rgba(201,138,79,0.12) 1px, transparent 0)"
+            : "radial-gradient(circle at 1px 1px, rgba(196,121,58,0.08) 1px, transparent 0)",
+          backgroundSize: "40px 40px",
+          maskImage: "linear-gradient(to bottom, black 0%, transparent 100%)",
           opacity: 0.5,
         }}
       />
-      {/* Gradient fade at edges */}
+      {/* Gradient: extends full height so "That Scale" stays clear; no darkening at bottom */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
         style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(248,248,246,0) 0%, #F8F8F6 100%)",
+          background: isDark
+            ? "radial-gradient(ellipse 85% 100% at 50% 45%, rgba(201,138,79,0.06) 0%, transparent 55%), linear-gradient(to bottom, transparent 0%, transparent 100%)"
+            : "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(248,248,246,0) 0%, #F8F8F6 100%)",
         }}
       />
 
       <div className="container-tight relative w-full py-20 md:py-28">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left: Copy */}
+          {/* Left: Copy - no extra left padding, back to original balance */}
           <div className="flex flex-col gap-6 max-w-xl">
             {/* Badge */}
             <motion.div
@@ -53,8 +63,8 @@ export default function Hero() {
               animate="visible"
               variants={fadeUp}
             >
-              <span className="inline-flex items-center gap-2 bg-[#F0E6DC] text-[#C4793A] text-[12px] font-semibold px-3 py-1 rounded-full tracking-wide uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C4793A]" />
+              <span className="inline-flex items-center gap-2 bg-[var(--color-copper-dim)] text-[var(--color-copper)] text-[12px] font-semibold px-3 py-1 rounded-full tracking-wide uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-copper)]" />
                 Digital Product Studio
               </span>
             </motion.div>
@@ -65,13 +75,13 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="text-[44px] md:text-[56px] lg:text-[60px] font-bold text-[var(--color-charcoal)] leading-[1.08] tracking-[-0.02em] text-balance"
+              className="text-[36px] sm:text-[44px] md:text-[56px] lg:text-[60px] font-bold text-[var(--color-charcoal)] leading-[1.08] tracking-[-0.02em] text-balance"
             >
               We Build Smart{" "}
               <span className="relative inline-block">
                 Digital Products
                 <svg
-                  className="absolute -bottom-1 left-0 w-full"
+                  className={`absolute left-0 w-full ${isDark ? "-bottom-3" : "-bottom-1"}`}
                   viewBox="0 0 240 8"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -79,13 +89,13 @@ export default function Hero() {
                 >
                   <path
                     d="M2 5.5C60 2.5 120 1.5 238 5.5"
-                    stroke="#C4793A"
+                    stroke="var(--color-copper)"
                     strokeWidth="3"
                     strokeLinecap="round"
                   />
                 </svg>
-              </span>{" "}
-              That Scale
+              </span>
+              <span className="block pt-3 md:pt-4">That Scale</span>
             </motion.h1>
 
             {/* Subheading */}
@@ -111,7 +121,7 @@ export default function Hero() {
             >
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 bg-[#111111] text-[#F8F8F6] text-[14px] font-semibold px-6 py-3 rounded-xl hover:bg-[#C4793A] transition-all duration-200 shadow-sm"
+                className="inline-flex items-center gap-2 bg-[var(--color-charcoal)] text-[var(--color-base)] text-[14px] font-semibold px-6 py-3 rounded-xl hover:bg-[var(--color-copper)] transition-all duration-200 shadow-sm"
               >
                 Start Your Project
                 <svg
@@ -133,7 +143,7 @@ export default function Hero() {
               </a>
               <a
                 href="#services"
-                className="inline-flex items-center gap-2 bg-transparent text-[#111111] text-[14px] font-semibold px-6 py-3 rounded-xl border border-[#D8D8D4] hover:border-[#111111] transition-all duration-200"
+                className="inline-flex items-center gap-2 bg-transparent text-[var(--color-charcoal)] text-[14px] font-semibold px-6 py-3 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-charcoal)] transition-all duration-200"
               >
                 View Our Work
               </a>
@@ -151,7 +161,7 @@ export default function Hero() {
                 {["C", "M", "A", "R"].map((initial, i) => (
                   <div
                     key={i}
-                    className="w-8 h-8 rounded-full border-2 border-[#F8F8F6] flex items-center justify-center text-[11px] font-semibold text-[#F8F8F6]"
+                    className="w-8 h-8 rounded-full border-2 border-[var(--color-base)] flex items-center justify-center text-[11px] font-semibold text-white"
                     style={{
                       backgroundColor: ["#3D4A3E", "#6B4C3B", "#2A3F4A", "#4A3A2A"][i],
                     }}
@@ -161,8 +171,8 @@ export default function Hero() {
                   </div>
                 ))}
               </div>
-              <p className="text-[13px] text-[#6B6B6B]">
-                Trusted by <strong className="text-[#111111] font-semibold">40+ founders</strong> worldwide
+              <p className="text-[13px] text-[var(--color-muted)]">
+                Trusted by <strong className="text-[var(--color-charcoal)] font-semibold">40+ founders</strong> worldwide
               </p>
             </motion.div>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { scrollReveal, scrollRevealScale, scrollRevealStagger, viewportOnce } from "@/lib/animations";
 
 const steps = [
   {
@@ -64,31 +65,34 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="section-padding bg-white"
+      className="section-alt-with-gradient section-padding overflow-hidden bg-[var(--color-section-alt)]"
       aria-labelledby="process-heading"
     >
-      <div className="container-tight">
+      <div className="section-dots-overlay" aria-hidden="true" />
+      <div className="section-dots-glow" aria-hidden="true" />
+      <div className="section-gradient-overlay" aria-hidden="true" />
+      <div className="container-tight relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55 }}
-          className="max-w-xl mb-14"
+          initial={scrollReveal.hidden}
+          whileInView={scrollReveal.visible}
+          viewport={viewportOnce}
+          transition={{ duration: 0.6 }}
+          className="max-w-xl mb-10 sm:mb-14"
         >
-          <span className="inline-flex items-center gap-2 text-[#C4793A] text-[12px] font-semibold uppercase tracking-widest mb-4">
-            <span className="w-4 h-px bg-[#C4793A]" />
+          <span className="inline-flex items-center gap-2 text-[var(--color-copper)] text-[12px] font-semibold uppercase tracking-widest mb-4">
+            <span className="w-4 h-px bg-[var(--color-copper)]" />
             How We Work
           </span>
           <h2
             id="process-heading"
-            className="text-[36px] md:text-[44px] font-bold text-[#111111] leading-[1.1] tracking-[-0.02em] mb-4"
+            className="text-[32px] sm:text-[36px] md:text-[44px] font-bold text-[var(--color-charcoal)] leading-[1.1] tracking-[-0.02em] mb-4"
           >
             A process built for
             <br />
             predictable outcomes.
           </h2>
-          <p className="text-[16px] text-[#6B6B6B] leading-relaxed">
+          <p className="text-[16px] text-[var(--color-muted)] leading-relaxed">
             No surprises. No scope creep. Our four-phase process gives every project
             a clear path from idea to production.
           </p>
@@ -98,49 +102,52 @@ export default function ProcessSection() {
         <div className="relative">
           {/* Connecting line (desktop) */}
           <div
-            className="hidden lg:block absolute top-9 left-[calc(12.5%-1px)] right-[calc(12.5%-1px)] h-px bg-[#E2E2DE] z-0"
+            className="hidden lg:block absolute top-9 left-[calc(12.5%-1px)] right-[calc(12.5%-1px)] h-px bg-[var(--color-border)] z-0"
             aria-hidden="true"
           />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {steps.map((step, i) => (
+          <motion.div
+            variants={scrollRevealStagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6"
+          >
+            {steps.map((step) => (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+                variants={scrollRevealScale}
                 className="relative flex flex-col gap-4"
               >
                 {/* Step number circle */}
                 <div className="relative z-10 flex items-center gap-3 lg:block">
-                  <div className="w-[72px] h-[72px] rounded-2xl bg-[#F8F8F6] border-2 border-[#E2E2DE] flex flex-col items-center justify-center gap-0.5 flex-shrink-0">
-                    <span className="text-[10px] font-bold text-[#C4793A] tracking-widest">
+                  <div className="w-[72px] h-[72px] rounded-3xl glass-card flex flex-col items-center justify-center gap-0.5 flex-shrink-0">
+                    <span className="text-[10px] font-bold text-[var(--color-copper)] tracking-widest">
                       {step.number}
                     </span>
-                    <div className="text-[#6B6B6B]">{step.icon}</div>
+                    <div className="text-[var(--color-muted)]">{step.icon}</div>
                   </div>
                   {/* Mobile connector */}
-                  <div className="lg:hidden flex-1 h-px bg-[#E2E2DE]" aria-hidden="true" />
+                  <div className="lg:hidden flex-1 h-px bg-[var(--color-border)]" aria-hidden="true" />
                 </div>
 
                 {/* Content */}
                 <div className="flex flex-col gap-2.5">
                   <div className="flex items-center gap-3">
-                    <h3 className="text-[16px] font-bold text-[#111111] tracking-tight">
+                    <h3 className="text-[16px] font-bold text-[var(--color-charcoal)] tracking-tight">
                       {step.title}
                     </h3>
-                    <span className="text-[11px] text-[#C4793A] font-semibold bg-[#F0E6DC] px-2 py-0.5 rounded-full whitespace-nowrap">
+                    <span className="text-[11px] text-[var(--color-copper)] font-semibold bg-[var(--color-copper-dim)] px-2.5 py-1 rounded-full whitespace-nowrap">
                       {step.duration}
                     </span>
                   </div>
-                  <p className="text-[14px] text-[#6B6B6B] leading-relaxed">
+                  <p className="text-[14px] text-[var(--color-muted)] leading-relaxed">
                     {step.description}
                   </p>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

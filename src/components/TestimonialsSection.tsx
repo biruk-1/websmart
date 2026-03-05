@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { scrollReveal, scrollRevealScale, scrollRevealStagger, viewportOnce } from "@/lib/animations";
 
 const testimonials = [
   {
@@ -34,25 +35,28 @@ export default function TestimonialsSection() {
   return (
     <section
       id="testimonials"
-      className="section-padding bg-white"
+      className="section-alt-with-gradient section-padding overflow-hidden bg-[var(--color-section-alt)]"
       aria-labelledby="testimonials-heading"
     >
-      <div className="container-tight">
+      <div className="section-dots-overlay" aria-hidden="true" />
+      <div className="section-dots-glow" aria-hidden="true" />
+      <div className="section-gradient-overlay" aria-hidden="true" />
+      <div className="container-tight relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55 }}
-          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12"
+          initial={scrollReveal.hidden}
+          whileInView={scrollReveal.visible}
+          viewport={viewportOnce}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10 sm:mb-12"
         >
           <div className="max-w-xl">
-            <span className="inline-flex items-center gap-2 text-[#C4793A] text-[12px] font-semibold uppercase tracking-widest mb-4">
-              <span className="w-4 h-px bg-[#C4793A]" />
+            <span className="inline-flex items-center gap-2 text-[var(--color-copper)] text-[12px] font-semibold uppercase tracking-widest mb-4">
+              <span className="w-4 h-px bg-[var(--color-copper)]" />
               What Clients Say
             </span>
             <h2
               id="testimonials-heading"
-              className="text-[36px] md:text-[44px] font-bold text-[#111111] leading-[1.1] tracking-[-0.02em]"
+              className="text-[32px] sm:text-[36px] md:text-[44px] font-bold text-[var(--color-charcoal)] leading-[1.1] tracking-[-0.02em]"
             >
               Trusted by founders
               <br />
@@ -61,7 +65,7 @@ export default function TestimonialsSection() {
           </div>
           <Link
             href="/testimonials"
-            className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#C4793A] hover:text-[#111111] transition-colors shrink-0"
+            className="inline-flex items-center gap-2 text-[14px] font-semibold text-[var(--color-copper)] hover:text-[var(--color-charcoal)] transition-colors shrink-0"
           >
             View all testimonials
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -70,28 +74,27 @@ export default function TestimonialsSection() {
           </Link>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
+        <motion.div
+          variants={scrollRevealStagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6"
+        >
+          {testimonials.map((t) => (
             <motion.article
               key={t.author}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{
-                duration: 0.5,
-                delay: i * 0.1,
-                ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-              }}
-              className="bg-[#F8F8F6] border border-[#E2E2DE] rounded-2xl p-6 flex flex-col gap-5 hover:border-[#D8D8D4] hover:shadow-[0_4px_24px_-6px_rgba(0,0,0,0.08)] transition-all duration-200"
+              variants={scrollRevealScale}
+              className="glass-card rounded-3xl p-5 sm:p-6 flex flex-col gap-5 hover:border-[var(--color-copper)]/30 hover:shadow-[var(--glass-shadow-hover)] transition-all duration-200"
             >
               <div className="flex gap-1">
                 {[...Array(5)].map((_, j) => (
-                  <svg key={j} width="14" height="14" viewBox="0 0 14 14" fill="#C4793A" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <svg key={j} width="14" height="14" viewBox="0 0 14 14" fill="var(--color-copper)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M7 1l1.5 4H13l-3.5 2.5L11 12 7 9.5 3 12l1.5-4.5L1 5h4.5L7 1z" />
                   </svg>
                 ))}
               </div>
-              <blockquote className="text-[15px] text-[#4A4A4A] leading-relaxed flex-1">
+              <blockquote className="text-[15px] text-[var(--color-muted)] leading-relaxed flex-1">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
               <div className="flex items-center gap-3">
@@ -102,13 +105,13 @@ export default function TestimonialsSection() {
                   {t.initial}
                 </div>
                 <div>
-                  <p className="text-[14px] font-semibold text-[#111111]">{t.author}</p>
-                  <p className="text-[13px] text-[#6B6B6B]">{t.role}</p>
+                  <p className="text-[14px] font-semibold text-[var(--color-charcoal)]">{t.author}</p>
+                  <p className="text-[13px] text-[var(--color-muted)]">{t.role}</p>
                 </div>
               </div>
             </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

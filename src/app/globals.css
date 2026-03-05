@@ -25,7 +25,16 @@
   --color-border-strong: #2A2A2A;
   --color-surface: #FFFFFF;
   --color-surface-soft: #F8F8F6;
+  --color-section-alt: #F8F8F6;
+  --color-section-alt-2: #FFFFFF;
   --color-nav-surface: rgba(248, 248, 246, 0.9);
+
+  /* Liquid glass (light) */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --glass-border-subtle: rgba(0, 0, 0, 0.06);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  --glass-shadow-hover: 0 16px 48px -12px rgba(0, 0, 0, 0.12);
 }
 
 :root[data-theme="dark"] {
@@ -42,9 +51,35 @@
   --color-copper-dim: rgba(201, 138, 79, 0.12);
   --color-border: #222222;
   --color-border-strong: #303030;
-  --color-surface: #101010;
+  --color-surface: #141414;
   --color-surface-soft: #111111;
+  --color-section-alt: #484848;
+  --color-section-alt-2: #565656;
   --color-nav-surface: rgba(7, 7, 7, 0.9);
+
+  /* Liquid glass (dark) */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-subtle: rgba(255, 255, 255, 0.06);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-shadow-hover: 0 16px 48px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Dot grid glow: soft organic pulse (grid breathes) */
+@keyframes grid-glow-pulse {
+  0%, 100% { opacity: 0.86; }
+  30% { opacity: 1; }
+  50% { opacity: 0.9; }
+  70% { opacity: 0.96; }
+}
+
+/* Random glow spots – small lights that move so different parts of the grid glow */
+@keyframes grid-glow-spots {
+  0%, 100% { background-position: 15% 20%, 80% 70%, 50% 40%, 25% 75%; }
+  20% { background-position: 70% 25%, 20% 60%, 85% 55%, 55% 15%; }
+  40% { background-position: 35% 75%, 75% 35%, 15% 80%, 90% 50%; }
+  60% { background-position: 60% 45%, 40% 85%, 70% 20%, 10% 60%; }
+  80% { background-position: 85% 60%, 55% 15%, 30% 70%, 65% 35%; }
 }
 
 @layer base {
@@ -70,9 +105,10 @@
     color: #FFFFFF;
   }
 
-  /* Navbar shells for light/dark */
+  /* Navbar: liquid glass when scrolled (both themes) */
   .navbar-shell {
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
   }
 
   .navbar-shell--top {
@@ -82,7 +118,176 @@
 
   .navbar-shell--scrolled {
     background-color: var(--color-nav-surface);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--glass-border-subtle);
+    border-radius: 0 0 1.5rem 1.5rem;
+    box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.08);
+  }
+
+  [data-theme="dark"] .navbar-shell--scrolled {
+    background-color: rgba(20, 20, 20, 0.72);
+    box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Liquid glass card – use on components inside sections (not full section) */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 1.5rem;
+    box-shadow: var(--glass-shadow);
+  }
+
+  .glass-card:hover {
+    box-shadow: var(--glass-shadow-hover);
+  }
+
+  /* Softer glass for nested elements (e.g. icon boxes) */
+  .glass-subtle {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border-subtle);
+  }
+
+  /* Hero: fixed subtle dot grid – light theme: visible in gradient, fade out at bottom */
+  .hero-dots {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-size: 22px 22px;
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(120, 118, 112, 0.14) 1px,
+      transparent 0
+    );
+    opacity: 0.85;
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+  }
+
+  [data-theme="dark"] .hero-dots {
+    -webkit-mask-image: none;
+    mask-image: none;
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(255, 255, 255, 0.12) 1px,
+      transparent 0
+    );
+    opacity: 1;
+    animation: grid-glow-pulse 5s ease-in-out infinite;
+  }
+
+  /* Hero: large traveling glow shapes – dark only; light mode: no animation */
+  .hero-dots-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: 52% 58%, 56% 52%, 54% 56%, 50% 54%;
+    background-position: 15% 20%, 80% 70%, 50% 40%, 25% 75%;
+    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.04) 0%, transparent 65%),
+      radial-gradient(circle at center, rgba(0, 0, 0, 0.03) 0%, transparent 60%),
+      radial-gradient(circle at center, rgba(0, 0, 0, 0.035) 0%, transparent 62%),
+      radial-gradient(circle at center, rgba(0, 0, 0, 0.025) 0%, transparent 58%);
+    animation: none;
+    opacity: 0;
+  }
+
+  [data-theme="dark"] .hero-dots-glow {
+    animation: grid-glow-spots 36s ease-in-out infinite;
+    opacity: 1;
+    background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.14) 0%, transparent 65%),
+      radial-gradient(circle at center, rgba(255, 255, 255, 0.11) 0%, transparent 60%),
+      radial-gradient(circle at center, rgba(255, 255, 255, 0.12) 0%, transparent 62%),
+      radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 58%);
+  }
+
+  /* Section dots: light theme – visible in gradient, fade out at bottom */
+  .section-dots-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-size: 22px 22px;
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(115, 113, 108, 0.16) 1px,
+      transparent 0
+    );
+    opacity: 0.8;
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+  }
+
+  [data-theme="dark"] .section-alt-with-gradient .section-dots-overlay {
+    -webkit-mask-image: none;
+    mask-image: none;
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 0
+    );
+    opacity: 1;
+    animation: grid-glow-pulse 5.5s ease-in-out infinite;
+  }
+
+  /* Section: same large grid-glow shapes – dark only; light mode: no animation */
+  .section-dots-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: 52% 58%, 56% 52%, 54% 56%, 50% 54%;
+    background-position: 15% 20%, 80% 70%, 50% 40%, 25% 75%;
+    animation: none;
+    opacity: 0;
+  }
+
+  [data-theme="dark"] .section-dots-glow {
+    animation: grid-glow-spots 42s ease-in-out infinite;
+    opacity: 1;
+  }
+
+  .section-alt-with-gradient .section-dots-glow {
+    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.035) 0%, transparent 65%),
+      radial-gradient(circle at center, rgba(0, 0, 0, 0.025) 0%, transparent 60%),
+      radial-gradient(circle at center, rgba(0, 0, 0, 0.03) 0%, transparent 62%),
+      radial-gradient(circle at center, rgba(0, 0, 0, 0.02) 0%, transparent 58%);
+  }
+
+  [data-theme="dark"] .section-alt-with-gradient .section-dots-glow {
+    background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.13) 0%, transparent 65%),
+      radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 60%),
+      radial-gradient(circle at center, rgba(255, 255, 255, 0.11) 0%, transparent 62%),
+      radial-gradient(circle at center, rgba(255, 255, 255, 0.09) 0%, transparent 58%);
+  }
+
+  /* Gray sections in dark mode: gradient + dot overlay (only when dark) */
+  [data-theme="dark"] .section-alt-with-gradient {
+    position: relative;
+    background-color: var(--color-section-alt);
+  }
+
+  [data-theme="dark"] .section-alt-with-gradient .section-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse 90% 70% at 50% 20%,
+        rgba(201, 138, 79, 0.12) 0%,
+        rgba(201, 138, 79, 0.04) 40%,
+        transparent 70%
+      ),
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.08) 100%
+      );
   }
 }
 
@@ -92,23 +297,44 @@
   }
 
   .section-padding {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  @media (min-width: 640px) {
+    .section-padding {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .section-padding {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
   }
 
   .container-tight {
     max-width: 1440px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-tight {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
   }
 
   @media (min-width: 1280px) {
     .container-tight {
       max-width: 1520px;
-      padding-left: 1.75rem;
-      padding-right: 1.75rem;
+      padding-left: 4.5rem;
+      padding-right: 4.5rem;
     }
   }
 }

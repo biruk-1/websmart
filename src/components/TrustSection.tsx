@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { scrollReveal, scrollRevealStagger, scrollRevealItem, viewportOnce } from "@/lib/animations";
 
 const stats = [
   { value: "40+", label: "Products shipped" },
@@ -22,61 +23,68 @@ export default function TrustSection() {
   return (
     <section
       id="about"
-      className="bg-[#F8F8F6] border-t border-b border-[#E2E2DE] py-16 md:py-20 overflow-hidden"
+      className="section-alt-with-gradient bg-[var(--color-section-alt)] border-t border-b border-[var(--color-border)] py-16 md:py-20 overflow-hidden"
       aria-label="Trust and social proof"
     >
-      <div className="container-tight">
+      <div className="section-dots-overlay" aria-hidden="true" />
+      <div className="section-dots-glow" aria-hidden="true" />
+      <div className="section-gradient-overlay" aria-hidden="true" />
+      <div className="container-tight relative z-10">
         {/* Client logos */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5 }}
+          initial={scrollReveal.hidden}
+          whileInView={scrollReveal.visible}
+          viewport={viewportOnce}
+          transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <p className="text-[13px] font-medium text-[#9A9A9A] uppercase tracking-widest mb-8">
+          <p className="text-[13px] font-medium text-[var(--color-muted-light)] uppercase tracking-widest mb-8">
             Trusted by builders and founders
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
-            {trustLogos.map((logo, i) => (
+          <motion.div
+            variants={scrollRevealStagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6"
+          >
+            {trustLogos.map((logo) => (
               <motion.div
                 key={logo.name}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.07 }}
-                className="flex items-center gap-2.5 text-[#9A9A9A] hover:text-[#6B6B6B] transition-colors duration-200"
+                variants={scrollRevealItem}
+                className="flex items-center gap-2.5 text-[var(--color-muted-light)] hover:text-[var(--color-muted)] transition-colors duration-200"
                 aria-label={logo.name}
               >
-                <div className="w-7 h-7 rounded-md bg-[#E2E2DE] flex items-center justify-center text-[10px] font-bold text-[#6B6B6B]">
+                <div className="w-8 h-8 rounded-xl glass-subtle flex items-center justify-center text-[10px] font-bold text-[var(--color-muted)]">
                   {logo.abbr}
                 </div>
                 <span className="text-[15px] font-semibold tracking-tight">{logo.name}</span>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Stats strip */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, delay: 0.1 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#E2E2DE] rounded-2xl overflow-hidden border border-[#E2E2DE]"
+          variants={scrollRevealStagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4"
         >
           {stats.map((stat) => (
-            <div
+            <motion.div
               key={stat.label}
-              className="bg-[#F8F8F6] px-6 py-7 flex flex-col gap-1 text-center"
+              variants={scrollRevealItem}
+              className="glass-card rounded-3xl px-4 sm:px-6 py-6 sm:py-7 flex flex-col gap-1 text-center"
             >
-              <span className="text-[32px] md:text-[36px] font-bold text-[#111111] leading-none tracking-tight">
+              <span className="text-[32px] md:text-[36px] font-bold text-[var(--color-charcoal)] leading-none tracking-tight">
                 {stat.value}
               </span>
-              <span className="text-[13px] text-[#6B6B6B] font-medium leading-snug">
+              <span className="text-[13px] text-[var(--color-muted)] font-medium leading-snug">
                 {stat.label}
               </span>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>

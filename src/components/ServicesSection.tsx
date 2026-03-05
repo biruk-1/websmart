@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { scrollReveal, scrollRevealScale, scrollRevealStagger, viewportOnce } from "@/lib/animations";
 
 const services = [
   {
@@ -75,20 +76,11 @@ const services = [
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-};
-
 const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
+  ...scrollRevealScale,
   visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.55,
-      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-    },
+    ...scrollRevealScale.visible,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
   },
 };
 
@@ -102,11 +94,11 @@ export default function ServicesSection() {
       <div className="container-tight">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55 }}
-          className="max-w-xl mb-14"
+          initial={scrollReveal.hidden}
+          whileInView={scrollReveal.visible}
+          viewport={viewportOnce}
+          transition={{ duration: 0.6 }}
+          className="max-w-xl mb-10 sm:mb-14"
         >
           <span className="inline-flex items-center gap-2 text-[var(--color-copper)] text-[12px] font-semibold uppercase tracking-widest mb-4">
             <span className="w-4 h-px bg-[var(--color-copper)]" />
@@ -114,7 +106,7 @@ export default function ServicesSection() {
           </span>
           <h2
             id="services-heading"
-            className="text-[36px] md:text-[44px] font-bold text-[var(--color-charcoal)] leading-[1.1] tracking-[-0.02em] mb-4"
+            className="text-[32px] sm:text-[36px] md:text-[44px] font-bold text-[var(--color-charcoal)] leading-[1.1] tracking-[-0.02em] mb-4"
           >
             Four disciplines,
             <br />
@@ -128,40 +120,40 @@ export default function ServicesSection() {
 
         {/* Cards */}
         <motion.div
-          variants={containerVariants}
+          variants={scrollRevealStagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-5"
+          viewport={viewportOnce}
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5"
         >
           {services.map((service) => (
             <motion.article
               key={service.number}
               variants={cardVariants}
-              className="group relative bg-white border border-[#E2E2DE] rounded-2xl p-7 flex flex-col gap-5 cursor-default
-                         hover:border-[#C4793A]/40 hover:shadow-[0_12px_40px_-12px_rgba(196,121,58,0.15)]
+              className="group relative glass-card rounded-3xl p-6 sm:p-7 flex flex-col gap-5 cursor-default
+                         hover:border-[var(--color-copper)]/40 hover:shadow-[0_12px_40px_-12px_rgba(196,121,58,0.15)]
                          transition-all duration-300"
             >
               {/* Top accent line on hover */}
-              <div className="absolute top-0 left-6 right-6 h-px bg-[#C4793A] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
+              <div className="absolute top-0 left-6 right-6 h-px bg-[var(--color-copper)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
 
               {/* Icon + Number */}
               <div className="flex items-center justify-between">
-                <div className="w-10 h-10 rounded-xl bg-[#F8F8F6] border border-[#E2E2DE] flex items-center justify-center text-[#6B6B6B] group-hover:bg-[#F0E6DC] group-hover:text-[#C4793A] group-hover:border-[#C4793A]/30 transition-all duration-300">
+                <div className="w-11 h-11 rounded-2xl glass-subtle flex items-center justify-center text-[var(--color-muted)] group-hover:bg-[var(--color-copper-dim)] group-hover:text-[var(--color-copper)] group-hover:border-[var(--color-copper)]/30 transition-all duration-300">
                   {service.icon}
                 </div>
-                <span className="text-[13px] font-semibold text-[#D8D8D4] group-hover:text-[#C4793A]/50 transition-colors duration-300">
+                <span className="text-[13px] font-semibold text-[var(--color-muted-light)] group-hover:text-[var(--color-copper)]/50 transition-colors duration-300">
                   {service.number}
                 </span>
               </div>
 
               {/* Title */}
-              <h3 className="text-[18px] font-bold text-[#111111] leading-snug tracking-tight">
+              <h3 className="text-[18px] font-bold text-[var(--color-charcoal)] leading-snug tracking-tight">
                 {service.title}
               </h3>
 
               {/* Description */}
-              <p className="text-[14px] text-[#6B6B6B] leading-relaxed flex-1">
+              <p className="text-[14px] text-[var(--color-muted)] leading-relaxed flex-1">
                 {service.description}
               </p>
 
@@ -169,7 +161,7 @@ export default function ServicesSection() {
               <ul className="flex flex-col gap-2.5 mt-1" role="list">
                 {service.benefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-2.5">
-                    <span className="w-4 h-4 rounded-full bg-[#F0E6DC] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="w-4 h-4 rounded-full bg-[var(--color-copper-dim)] flex items-center justify-center flex-shrink-0 mt-0.5">
                       <svg
                         width="8"
                         height="8"
@@ -180,14 +172,14 @@ export default function ServicesSection() {
                       >
                         <path
                           d="M1.5 4L3 5.5L6.5 2"
-                          stroke="#C4793A"
+                          stroke="var(--color-copper)"
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         />
                       </svg>
                     </span>
-                    <span className="text-[13px] text-[#4A4A4A] leading-snug">{benefit}</span>
+                    <span className="text-[13px] text-[var(--color-muted)] leading-snug">{benefit}</span>
                   </li>
                 ))}
               </ul>

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { scrollReveal, scrollRevealScale, scrollRevealStagger, viewportOnce } from "@/lib/animations";
 
 const testimonials = [
   {
@@ -62,14 +63,14 @@ const testimonials = [
 
 export default function TestimonialsPageContent() {
   return (
-    <div className="pt-24 pb-20 bg-[#F8F8F6] min-h-screen">
+    <div className="pt-20 sm:pt-24 pb-16 sm:pb-20 bg-[#F8F8F6] min-h-screen">
       <div className="container-tight">
         {/* Breadcrumb / Back */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="mb-10"
+          className="mb-8 sm:mb-10"
         >
           <Link
             href="/"
@@ -87,13 +88,13 @@ export default function TestimonialsPageContent() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.05 }}
-          className="max-w-2xl mb-14"
+          className="max-w-2xl mb-10 sm:mb-14"
         >
           <span className="inline-flex items-center gap-2 text-[#C4793A] text-[12px] font-semibold uppercase tracking-widest mb-4">
             <span className="w-4 h-px bg-[#C4793A]" />
             Testimonials
           </span>
-          <h1 className="text-[40px] md:text-[52px] font-bold text-[#111111] leading-[1.08] tracking-[-0.025em] mb-4">
+          <h1 className="text-[32px] sm:text-[40px] md:text-[52px] font-bold text-[#111111] leading-[1.08] tracking-[-0.025em] mb-4">
             What our clients
             <br />
             say about us.
@@ -104,18 +105,18 @@ export default function TestimonialsPageContent() {
         </motion.header>
 
         {/* Testimonials grid */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {testimonials.map((t, i) => (
+        <motion.div
+          variants={scrollRevealStagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          className="grid sm:grid-cols-2 gap-4 sm:gap-6"
+        >
+          {testimonials.map((t) => (
             <motion.article
               key={t.author}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                delay: 0.1 + i * 0.08,
-                ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-              }}
-              className="bg-white border border-[#E2E2DE] rounded-2xl p-7 flex flex-col gap-5 hover:border-[#D8D8D4] hover:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.08)] transition-all duration-200"
+              variants={scrollRevealScale}
+              className="glass-card rounded-3xl p-5 sm:p-7 flex flex-col gap-5 hover:shadow-[var(--glass-shadow-hover)] transition-all duration-200"
             >
               <div className="flex gap-1">
                 {[...Array(5)].map((_, j) => (
@@ -146,15 +147,15 @@ export default function TestimonialsPageContent() {
               </div>
             </motion.article>
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mt-16 text-center"
+          initial={scrollReveal.hidden}
+          whileInView={scrollReveal.visible}
+          viewport={viewportOnce}
+          transition={{ duration: 0.55 }}
+          className="mt-12 sm:mt-16 text-center"
         >
           <p className="text-[15px] text-[#6B6B6B] mb-4">
             Ready to start your project?

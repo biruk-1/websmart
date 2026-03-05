@@ -29,6 +29,20 @@ export default function Navbar() {
   }`;
 
   const isDark = theme === "dark";
+  const navTextClassName = isDark
+    ? "text-[rgba(245,245,242,0.78)] hover:text-white"
+    : "text-[#6B6B6B] hover:text-[#111111]";
+  const logoTextClassName = isDark ? "text-white" : "text-[#111111]";
+  const logoMarkClassName = isDark
+    ? "bg-white text-[#111111] group-hover:bg-[#C4793A]"
+    : "bg-[#111111] text-[#F8F8F6] group-hover:bg-[#C4793A]";
+  const toggleClassName = isDark
+    ? "border-[var(--color-border)] bg-[var(--color-surface)] text-white hover:text-white hover:border-[#C4793A]/70"
+    : "border-[#E2E2DE] bg-[#F8F8F6] text-[#6B6B6B] hover:text-[#111111] hover:border-[#C4793A]/60";
+  const mobileMenuClassName = isDark
+    ? "md:hidden border-t border-[var(--color-border)] pb-6 pt-4 bg-[rgba(7,7,7,0.96)] backdrop-blur-md"
+    : "md:hidden border-t border-[#E2E2DE] pb-6 pt-4 bg-[#F8F8F6]/95 backdrop-blur-md";
+  const mobileLineClassName = isDark ? "bg-white" : "bg-[#111111]";
 
   return (
     <motion.header
@@ -48,7 +62,9 @@ export default function Navbar() {
             className="flex items-center gap-2 group"
             aria-label="Web Smart home"
           >
-            <span className="w-7 h-7 rounded-md bg-[#111111] flex items-center justify-center flex-shrink-0 group-hover:bg-[#C4793A] transition-colors duration-200">
+            <span
+              className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-200 ${logoMarkClassName}`}
+            >
               <svg
                 width="14"
                 height="14"
@@ -59,14 +75,14 @@ export default function Navbar() {
               >
                 <path
                   d="M2 7L5.5 3.5L7 5L10 2L12 4M2 10.5L5.5 7L7 8.5L10 5.5L12 7.5"
-                  stroke="#F8F8F6"
+                  stroke="currentColor"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
               </svg>
             </span>
-            <span className="text-[#111111] font-semibold text-[17px] tracking-tight">
+            <span className={`font-semibold text-[17px] tracking-tight ${logoTextClassName}`}>
               Web<span className="text-[#C4793A]">Smart</span>
             </span>
           </Link>
@@ -78,7 +94,7 @@ export default function Navbar() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-[14px] font-medium text-[#6B6B6B] hover:text-[#111111] transition-colors duration-150"
+                    className={`text-[14px] font-medium transition-colors duration-150 ${navTextClassName}`}
                   >
                     {link.label}
                   </Link>
@@ -92,7 +108,7 @@ export default function Navbar() {
                 type="button"
                 onClick={toggleTheme}
                 aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#E2E2DE] bg-[#F8F8F6] text-[#6B6B6B] hover:text-[#111111] hover:border-[#C4793A]/60 transition-colors duration-200"
+                className={`inline-flex h-9 w-9 items-center justify-center rounded-full border transition-colors duration-200 ${toggleClassName}`}
               >
                 {isDark ? (
                   <svg
@@ -140,7 +156,7 @@ export default function Navbar() {
               {/* CTA */}
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 bg-[#111111] text-[#F8F8F6] text-[13px] font-medium px-4 py-2 rounded-lg hover:bg-[#C4793A] transition-colors duration-200"
+                className="inline-flex items-center gap-2 bg-[#111111] text-[#F8F8F6] text-[13px] font-medium px-5 py-2.5 rounded-xl hover:bg-[#C4793A] transition-colors duration-200"
               >
                 Book a Strategy Call
                 <svg
@@ -171,17 +187,17 @@ export default function Navbar() {
             aria-expanded={menuOpen}
           >
             <span
-              className={`block w-5 h-0.5 bg-[#111111] transition-all duration-200 ${
+              className={`block w-5 h-0.5 transition-all duration-200 ${mobileLineClassName} ${
                 menuOpen ? "rotate-45 translate-y-2" : ""
               }`}
             />
             <span
-              className={`block w-5 h-0.5 bg-[#111111] transition-all duration-200 ${
+              className={`block w-5 h-0.5 transition-all duration-200 ${mobileLineClassName} ${
                 menuOpen ? "opacity-0" : ""
               }`}
             />
             <span
-              className={`block w-5 h-0.5 bg-[#111111] transition-all duration-200 ${
+              className={`block w-5 h-0.5 transition-all duration-200 ${mobileLineClassName} ${
                 menuOpen ? "-rotate-45 -translate-y-2" : ""
               }`}
             />
@@ -195,7 +211,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden border-t border-[#E2E2DE] pb-6 pt-4 bg-[#F8F8F6]/95 backdrop-blur-md"
+            className={`${mobileMenuClassName} rounded-b-2xl`}
           >
             <div className="flex flex-col gap-3">
               <ul className="flex flex-col gap-1" role="list">
@@ -204,7 +220,7 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className="block py-2 text-[15px] font-medium text-[#6B6B6B] hover:text-[#111111] transition-colors"
+                      className={`block py-2 text-[15px] font-medium transition-colors ${navTextClassName}`}
                     >
                       {link.label}
                     </Link>
@@ -216,7 +232,7 @@ export default function Navbar() {
                   type="button"
                   onClick={toggleTheme}
                   aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#E2E2DE] bg-[#F8F8F6] text-[#6B6B6B] hover:text-[#111111] hover:border-[#C4793A]/60 transition-colors duration-200"
+                  className={`inline-flex h-9 w-9 items-center justify-center rounded-full border transition-colors duration-200 ${toggleClassName}`}
                 >
                   {isDark ? (
                     <svg

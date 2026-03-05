@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { scrollReveal, viewportOnce } from "@/lib/animations";
 
 const quickLinks = [
   { label: "Services", href: "/#services" },
@@ -27,11 +28,11 @@ export default function Footer() {
       <div className="container-tight">
         {/* Main footer content */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="grid md:grid-cols-[1.5fr_1fr_1fr_1.5fr] gap-10 py-14 border-b border-[#1E1E1E]"
+          initial={scrollReveal.hidden}
+          whileInView={scrollReveal.visible}
+          viewport={viewportOnce}
+          transition={{ duration: 0.55 }}
+          className="grid grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1.5fr] gap-8 sm:gap-10 py-10 sm:py-14 border-b border-[#1E1E1E]"
         >
           {/* Brand */}
           <div className="flex flex-col gap-4">
@@ -82,7 +83,7 @@ export default function Footer() {
                   key={social.label}
                   href="#"
                   aria-label={social.label}
-                  className="w-8 h-8 rounded-lg bg-[#1A1A1A] border border-[#2A2A2A] flex items-center justify-center text-[#6B6B6B] hover:text-[#C4793A] hover:border-[#C4793A]/40 transition-all duration-200"
+                  className="w-9 h-9 rounded-xl bg-[#1A1A1A] border border-[#2A2A2A] flex items-center justify-center text-[#6B6B6B] hover:text-[#C4793A] hover:border-[#C4793A]/40 transition-all duration-200"
                 >
                   <svg
                     width="14"
@@ -150,7 +151,7 @@ export default function Footer() {
             </h3>
             <div className="flex flex-col gap-3">
               <a
-                href="mailto:hello@websmart.dev"
+                href="mailto:websmartstudio2025@gmail.com"
                 className="text-[14px] text-[#6B6B6B] hover:text-[#C4793A] transition-colors duration-150 flex items-center gap-2"
               >
                 <svg
@@ -164,11 +165,11 @@ export default function Footer() {
                   <rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
                   <path d="M1.5 3.5L7 8l5.5-4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                hello@websmart.dev
+                websmartstudio2025@gmail.com
               </a>
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 bg-[#C4793A] text-white text-[13px] font-medium px-4 py-2.5 rounded-lg hover:bg-[#D4895A] transition-colors duration-200 w-fit mt-1"
+                className="inline-flex items-center gap-2 bg-[#C4793A] text-white text-[13px] font-medium px-5 py-2.5 rounded-xl hover:bg-[#D4895A] transition-colors duration-200 w-fit mt-1"
               >
                 Book a Call
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
