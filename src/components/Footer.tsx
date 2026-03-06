@@ -36,7 +36,7 @@ export default function Footer() {
         >
           {/* Brand */}
           <div className="flex flex-col gap-4">
-            <Link href="/" className="flex items-center gap-2" aria-label="Web Smart home">
+            <Link href="/" className="flex items-center gap-2 group transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] w-fit" aria-label="Web Smart home">
               <span className="w-7 h-7 rounded-md bg-[#C4793A] flex items-center justify-center flex-shrink-0">
                 <svg
                   width="14"
@@ -83,7 +83,7 @@ export default function Footer() {
                   key={social.label}
                   href="#"
                   aria-label={social.label}
-                  className="w-9 h-9 rounded-xl bg-[#1A1A1A] border border-[#2A2A2A] flex items-center justify-center text-[#6B6B6B] hover:text-[#C4793A] hover:border-[#C4793A]/40 transition-all duration-200"
+                  className="w-9 h-9 rounded-xl bg-[#1A1A1A] border border-[#2A2A2A] flex items-center justify-center text-[#6B6B6B] hover:text-[#C4793A] hover:border-[#C4793A]/50 hover:scale-110 transition-all duration-300"
                 >
                   <svg
                     width="14"
@@ -114,12 +114,12 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5" role="list">
               {quickLinks.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-[14px] text-[#6B6B6B] hover:text-[#F8F8F6] transition-colors duration-150"
-                  >
-                    {link.label}
-                  </Link>
+<Link
+                  href={link.href}
+                  className="text-[14px] text-[#6B6B6B] hover:text-[#F8F8F6] transition-all duration-200 hover:translate-x-0.5 inline-block"
+                >
+                  {link.label}
+                </Link>
                 </li>
               ))}
             </ul>
@@ -169,7 +169,7 @@ export default function Footer() {
               </a>
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 bg-[#C4793A] text-white text-[13px] font-medium px-5 py-2.5 rounded-xl hover:bg-[#D4895A] transition-colors duration-200 w-fit mt-1"
+                className="btn-primary text-[13px] px-5 py-2.5 w-fit mt-1"
               >
                 Book a Call
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

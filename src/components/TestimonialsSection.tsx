@@ -35,7 +35,7 @@ export default function TestimonialsSection() {
   return (
     <section
       id="testimonials"
-      className="section-alt-with-gradient section-padding overflow-hidden bg-[var(--color-section-alt)]"
+      className="section-alt-with-gradient section-padding overflow-hidden"
       aria-labelledby="testimonials-heading"
     >
       <div className="section-dots-overlay" aria-hidden="true" />

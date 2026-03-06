@@ -7,8 +7,10 @@ import { useTheme } from "./ThemeProvider";
 
 const navLinks = [
   { label: "Services", href: "/#services" },
+  { label: "Projects", href: "/#projects" },
   { label: "About", href: "/#about" },
   { label: "Process", href: "/#process" },
+  { label: "Partners", href: "/#partners" },
   { label: "Testimonials", href: "/testimonials" },
   { label: "Contact", href: "/#contact" },
 ];
@@ -59,7 +61,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-2 group transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]"
             aria-label="Web Smart home"
           >
             <span
@@ -94,7 +96,7 @@ export default function Navbar() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className={`text-[14px] font-medium transition-colors duration-150 ${navTextClassName}`}
+                    className={`link-underline text-[14px] font-medium transition-colors duration-200 py-1 ${navTextClassName}`}
                   >
                     {link.label}
                   </Link>
@@ -156,7 +158,7 @@ export default function Navbar() {
               {/* CTA */}
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 bg-[#111111] text-[#F8F8F6] text-[13px] font-medium px-5 py-2.5 rounded-xl hover:bg-[#C4793A] transition-colors duration-200"
+                className="btn-primary group text-[13px] px-5 py-2.5"
               >
                 Book a Strategy Call
                 <svg
@@ -166,6 +168,7 @@ export default function Navbar() {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                   aria-hidden="true"
+                  className="arrow-hover"
                 >
                   <path
                     d="M2.5 6H9.5M6.5 3L9.5 6L6.5 9"
@@ -279,7 +282,7 @@ export default function Navbar() {
                 <Link
                   href="/#contact"
                   onClick={() => setMenuOpen(false)}
-                  className="inline-flex flex-1 items-center justify-center gap-2 bg-[#111111] text-[#F8F8F6] text-[14px] font-medium px-4 py-2.5 rounded-lg hover:bg-[#C4793A] transition-colors"
+                  className="btn-primary flex-1 justify-center text-[14px] px-4 py-2.5 rounded-lg"
                 >
                   Book a Strategy Call
                 </Link>

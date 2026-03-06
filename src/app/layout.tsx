@@ -55,7 +55,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="antialiased">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <div className="relative z-10 min-h-screen">{children}</div>
+        </ThemeProvider>
       </body>
     </html>
   );

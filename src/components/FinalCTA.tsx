@@ -7,7 +7,7 @@ export default function FinalCTA() {
   return (
     <section
       id="contact"
-      className="bg-[var(--color-base-100)] section-padding relative overflow-hidden"
+      className="bg-[var(--color-base-100)] section-padding relative overflow-hidden section-dots-base"
       aria-labelledby="cta-heading"
     >
       {/* Background texture */}
@@ -43,7 +43,7 @@ export default function FinalCTA() {
             {/* Badge */}
             <motion.span
               variants={scrollRevealItem}
-              className="inline-flex items-center gap-2 bg-[#1E1E1E] text-[#C4793A] border border-[#2A2A2A] text-[12px] font-semibold px-3 py-1.5 rounded-xl tracking-widest uppercase"
+              className="inline-flex items-center gap-2 bg-[#111111] text-[var(--color-copper)] border border-white/10 text-[12px] font-semibold px-3 py-1.5 rounded-xl tracking-widest uppercase"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#C4793A] animate-pulse" />
               Taking on new projects
@@ -53,17 +53,17 @@ export default function FinalCTA() {
             <motion.h2
               variants={scrollRevealItem}
               id="cta-heading"
-              className="text-[36px] sm:text-[40px] md:text-[56px] font-bold text-[#F8F8F6] leading-[1.06] tracking-[-0.025em] text-balance"
+              className="text-[36px] sm:text-[40px] md:text-[56px] font-bold text-[var(--color-charcoal)] leading-[1.06] tracking-[-0.025em] text-balance"
             >
               Ready to Build
               <br />
-              <span className="text-[#C4793A]">Something Smart?</span>
+              <span className="text-[var(--color-copper)]">Something Smart?</span>
             </motion.h2>
 
             {/* Sub copy */}
             <motion.p
               variants={scrollRevealItem}
-              className="text-[15px] sm:text-[16px] text-[#9A9A9A] leading-relaxed max-w-md"
+              className="text-[15px] sm:text-[16px] text-[var(--color-muted)] leading-relaxed max-w-md"
             >
               Let&apos;s talk about your project. We&apos;ll review your requirements,
               share a transparent proposal, and move fast.
@@ -72,11 +72,11 @@ export default function FinalCTA() {
             {/* CTA buttons */}
             <motion.div
               variants={scrollRevealItem}
-              className="flex flex-wrap gap-3 justify-center"
+              className="flex flex-wrap gap-3 justify-center group/cta"
             >
               <a
                 href="mailto:websmartstudio2025@gmail.com"
-                className="inline-flex items-center gap-2.5 bg-[#C4793A] text-white text-[14px] font-semibold px-7 py-3.5 rounded-2xl hover:bg-[#D4895A] transition-colors duration-200 shadow-[0_4px_20px_-4px_rgba(196,121,58,0.5)]"
+                className="btn-primary group text-[14px] px-7 py-3.5 rounded-2xl"
               >
                 Let&apos;s Talk
                 <svg
@@ -86,6 +86,7 @@ export default function FinalCTA() {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                   aria-hidden="true"
+                  className="arrow-hover"
                 >
                   <path
                     d="M3 7H11M7.5 3.5L11 7L7.5 10.5"
@@ -98,7 +99,7 @@ export default function FinalCTA() {
               </a>
               <a
                 href="mailto:websmartstudio2025@gmail.com"
-                className="inline-flex items-center gap-2 bg-transparent text-[#9A9A9A] text-[14px] font-medium px-6 py-3.5 rounded-2xl border border-[#2A2A2A] hover:border-[#4A4A4A] hover:text-[#F8F8F6] transition-all duration-200"
+                className="btn-secondary text-[14px] px-6 py-3.5 rounded-2xl"
               >
                 websmartstudio2025@gmail.com
               </a>
@@ -107,7 +108,7 @@ export default function FinalCTA() {
             {/* Trust line */}
             <motion.p
               variants={scrollRevealItem}
-              className="text-[13px] text-[#4A4A4A]"
+              className="text-[13px] text-[var(--color-muted-light)]"
             >
               Response within 24 hours &middot; No commitment required
             </motion.p>

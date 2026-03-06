@@ -76,7 +76,7 @@ export default function WhyWebSmart() {
   return (
     <section
       id="about"
-      className="section-alt-with-gradient section-padding overflow-hidden bg-[var(--color-section-alt)]"
+      className="section-alt-with-gradient section-padding overflow-hidden"
       aria-labelledby="why-heading"
     >
       <div className="section-dots-overlay" aria-hidden="true" />

@@ -23,7 +23,7 @@ export default function TrustSection() {
   return (
     <section
       id="about"
-      className="section-alt-with-gradient bg-[var(--color-section-alt)] border-t border-b border-[var(--color-border)] py-16 md:py-20 overflow-hidden"
+      className="section-alt-with-gradient section-padding border-t border-b border-[var(--color-border)] overflow-hidden"
       aria-label="Trust and social proof"
     >
       <div className="section-dots-overlay" aria-hidden="true" />

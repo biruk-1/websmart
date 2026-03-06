@@ -88,7 +88,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="section-padding bg-[var(--color-base)]"
+      className="section-padding bg-[var(--color-base)] section-dots-base"
       aria-labelledby="services-heading"
     >
       <div className="container-tight">

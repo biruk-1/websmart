@@ -117,11 +117,11 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="flex flex-wrap gap-3 pt-2"
+              className="flex flex-wrap gap-3 pt-2 group/cta"
             >
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 bg-[var(--color-charcoal)] text-[var(--color-base)] text-[14px] font-semibold px-6 py-3 rounded-xl hover:bg-[var(--color-copper)] transition-all duration-200 shadow-sm"
+                className="btn-primary group text-[14px] px-6 py-3"
               >
                 Start Your Project
                 <svg
@@ -131,6 +131,7 @@ export default function Hero() {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                   aria-hidden="true"
+                  className="arrow-hover"
                 >
                   <path
                     d="M3 7H11M7.5 3.5L11 7L7.5 10.5"
@@ -142,8 +143,8 @@ export default function Hero() {
                 </svg>
               </a>
               <a
-                href="#services"
-                className="inline-flex items-center gap-2 bg-transparent text-[var(--color-charcoal)] text-[14px] font-semibold px-6 py-3 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-charcoal)] transition-all duration-200"
+                href="#projects"
+                className="btn-secondary text-[14px] px-6 py-3"
               >
                 View Our Work
               </a>

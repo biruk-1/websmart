@@ -65,7 +65,7 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="section-alt-with-gradient section-padding overflow-hidden bg-[var(--color-section-alt)]"
+      className="section-alt-with-gradient section-padding overflow-hidden"
       aria-labelledby="process-heading"
     >
       <div className="section-dots-overlay" aria-hidden="true" />
