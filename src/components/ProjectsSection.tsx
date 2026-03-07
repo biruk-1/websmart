@@ -114,7 +114,7 @@ const projects: Project[] = [
     title: "Workora",
     description:
       "Workora is a secure customer portal that allows customers to find thier best nearby fittinng workspaces and book them with a single click.",
-    image: "/assets/projects/Workora.png",
+    image: "/assets/projects/workora.png",
     links: [{ label: "Demo", href: "https://v0-workora-website-design.vercel.app/" }],
     highlights: ["Authentication + permissions", "Data visualization", "Audit-friendly actions"],
     stack: ["React", "Node.js", "Postgres"],
